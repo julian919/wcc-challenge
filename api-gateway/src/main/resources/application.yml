@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: api-gateway
+  threads:
+    virtual:
+      enabled: true
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: auth
+              uri: ${AUTH_URI:http://localhost:8100}
+              predicates:
+                - Path=/api/auth/**
+            - id: postcodes
+              uri: ${POSTCODES_URI:http://localhost:8200}
+              predicates:
+                - Path=/api/postcodes/**
+
+server:
+  port: 8765

@@ -1,0 +1,38 @@
+services:
+  mongo:
+    image: mongo:8
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  auth-service:
+    build: ./auth-service
+    environment:
+      MONGO_URI: mongodb://admin:password@mongo:27017/auth_db?authSource=admin
+    depends_on:
+      - mongo
+
+  postcodes-service:
+    build: ./postcodes-service
+    environment:
+      MONGO_URI: mongodb://admin:password@mongo:27017/postcodes_db?authSource=admin
+    depends_on:
+      - mongo
+
+  api-gateway:
+    build: ./api-gateway
+    environment:
+      AUTH_URI: http://auth-service:8100
+      POSTCODES_URI: http://postcodes-service:8200
+    ports:
+      - "8765:8765"
+    depends_on:
+      - auth-service
+      - postcodes-service
+
+volumes:
+  mongo-data:
