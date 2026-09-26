@@ -42,7 +42,7 @@ public class TokenService {
                 .subject(principal.id())
                 .issuedAt(now)
                 .expiresAt(now.plus(tokenTtl))
-                .claim("type", principal.type())
+                .claim("type", principal.type().name())
                 .claim("roles", principal.roles())
                 .claim("permissions", permissions)
                 .build();

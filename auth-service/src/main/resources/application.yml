@@ -6,6 +6,12 @@ spring:
       enabled: true
   mongodb:
     uri: ${MONGO_URI:mongodb://admin:password@localhost:27017/auth_db?authSource=admin}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          authorities-claim-name: permissions
+          authority-prefix: ""
 
 server:
   port: 8100
