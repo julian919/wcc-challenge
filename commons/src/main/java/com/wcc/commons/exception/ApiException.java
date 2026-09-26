@@ -1,4 +1,4 @@
-package com.wcc.postcodes.common.exception;
+package com.wcc.commons.exception;
 
 import org.springframework.http.HttpStatus;
 

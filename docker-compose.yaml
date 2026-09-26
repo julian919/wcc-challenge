@@ -20,7 +20,9 @@ services:
       - mongo
 
   postcodes-service:
-    build: ./postcodes-service
+    build:
+      context: .
+      dockerfile: postcodes-service/Dockerfile
     environment:
       MONGO_URI: mongodb://admin:password@mongo:27017/postcodes_db?authSource=admin
     depends_on:

@@ -1,4 +1,4 @@
-package com.wcc.postcodes.common.exception;
+package com.wcc.commons.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

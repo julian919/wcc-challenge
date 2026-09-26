@@ -1,6 +1,6 @@
 package com.wcc.postcodes.postcode.exception;
 
-import com.wcc.postcodes.common.exception.ApiException;
+import com.wcc.commons.exception.ApiException;
 import org.springframework.http.HttpStatus;
 
 public class PostcodeNotFoundException extends ApiException {
