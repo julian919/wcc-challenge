@@ -16,7 +16,7 @@ spring:
             - id: auth
               uri: ${AUTH_URI:http://localhost:8100}
               predicates:
-                - Path=/api/auth/**
+                - Path=/api/auth/**,/.well-known/jwks.json
             - id: postcodes
               uri: ${POSTCODES_URI:http://localhost:8200}
               predicates:
