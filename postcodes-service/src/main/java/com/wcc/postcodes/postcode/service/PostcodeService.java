@@ -2,13 +2,12 @@ package com.wcc.postcodes.postcode.service;
 
 import com.wcc.postcodes.postcode.dto.DistanceResponseDto;
 import com.wcc.postcodes.postcode.dto.PostcodeDto;
+import com.wcc.postcodes.postcode.exception.PostcodeNotFoundException;
 import com.wcc.postcodes.postcode.model.Postcode;
 import com.wcc.postcodes.postcode.repository.PostcodeRepository;
 import com.wcc.postcodes.postcode.utility.DistanceCalculator;
 import java.util.Locale;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class PostcodeService {
@@ -34,6 +33,6 @@ public class PostcodeService {
     private Postcode getPostcodeDocument(String postcode) {
         String upperCased = postcode.toUpperCase(Locale.ROOT);
         return repository.findByPostcode(upperCased)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Postcode not found: " + upperCased));
+                .orElseThrow(() -> new PostcodeNotFoundException(upperCased));
     }
 }
