@@ -4,6 +4,10 @@ spring:
   threads:
     virtual:
       enabled: true
+  http:
+    clients:
+      connect-timeout: 2s
+      read-timeout: 10s
   cloud:
     gateway:
       server:
