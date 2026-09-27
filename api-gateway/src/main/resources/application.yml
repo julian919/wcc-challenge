@@ -20,7 +20,11 @@ spring:
             - id: postcodes
               uri: ${POSTCODES_URI:http://localhost:8200}
               predicates:
-                - Path=/api/postcodes/**
+                - Path=/api/postcode/**
+            - id: users
+              uri: ${USERS_URI:http://localhost:8300}
+              predicates:
+                - Path=/api/user/**
 
 server:
   port: 8765

@@ -11,4 +11,6 @@ public interface PrincipalRepository extends MongoRepository<Principal, String> 
 
     @Query("{ 'type': ?0, 'logins': { $elemMatch: { 'type': ?1, 'login': ?2 } } }")
     Optional<Principal> findByTypeAndLogin(PrincipalType principalType, LoginType loginType, String login);
+
+    void deleteByIdAndType(String id, PrincipalType type);
 }

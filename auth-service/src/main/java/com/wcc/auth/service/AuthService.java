@@ -1,6 +1,6 @@
 package com.wcc.auth.service;
 
-import com.wcc.auth.dto.RegisterResponseDto;
+import com.wcc.auth.dto.CreatePrincipalResponseDto;
 import com.wcc.auth.dto.TokenResponseDto;
 import com.wcc.auth.exception.InvalidClientException;
 import com.wcc.auth.exception.InvalidCredentialsException;
@@ -39,15 +39,19 @@ public class AuthService {
         return tokenService.issueToken(client);
     }
 
-    public RegisterResponseDto registerUser(String username, String password) {
+    public CreatePrincipalResponseDto createPrincipal(String username, String password) {
         Principal user = new Principal(null, PrincipalType.USER, passwordEncoder.encode(password),
                 List.of("USER"), List.of(new Principal.Login(LoginType.USERNAME, username)));
         try {
             Principal saved = principalRepository.save(user);
-            return new RegisterResponseDto(saved.id(), username);
+            return new CreatePrincipalResponseDto(saved.id());
         } catch (DuplicateKeyException e) {
             throw new UsernameTakenException(username);
         }
+    }
+
+    public void deletePrincipal(String principalId) {
+        principalRepository.deleteByIdAndType(principalId, PrincipalType.USER);
     }
 
     public TokenResponseDto loginUser(String username, String password) {

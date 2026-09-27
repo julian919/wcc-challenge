@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/postcodes")
+@RequestMapping("/api/postcode")
 public class PostcodeController {
 
     private final PostcodeService service;

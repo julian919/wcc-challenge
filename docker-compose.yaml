@@ -33,17 +33,32 @@ services:
     depends_on:
       - mongo
 
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    environment:
+      MONGO_URI: mongodb://admin:password@mongo:27017/user_db?authSource=admin
+      JWK_SET_URI: http://auth-service:8100/.well-known/jwks.json
+      AUTH_BASE_URL: http://auth-service:8100
+      CLIENT_SECRET: "Test1234@"
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
+    depends_on:
+      - mongo
+
   api-gateway:
     build: ./api-gateway
     environment:
       AUTH_URI: http://auth-service:8100
       POSTCODES_URI: http://postcodes-service:8200
+      USERS_URI: http://user-service:8300
       LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
     ports:
       - "8765:8765"
     depends_on:
       - auth-service
       - postcodes-service
+      - user-service
 
 volumes:
   mongo-data:
