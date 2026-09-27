@@ -30,6 +30,13 @@ public class PostcodeService {
         return new DistanceResponseDto(PostcodeDto.from(postcode1), PostcodeDto.from(postcode2), distanceInKm, "km");
     }
 
+    public PostcodeDto updatePostcodeCoordinates(String postcode, double latitude, double longitude) {
+        Postcode existing = getPostcodeDocument(postcode);
+        Postcode updatedPostcode = new Postcode(existing.id(), existing.postcode(), latitude, longitude);
+        Postcode updated = repository.save(updatedPostcode);
+        return PostcodeDto.from(updated);
+    }
+
     private Postcode getPostcodeDocument(String postcode) {
         String upperCased = postcode.toUpperCase(Locale.ROOT);
         return repository.findByPostcode(upperCased)

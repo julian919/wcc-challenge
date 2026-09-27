@@ -6,6 +6,13 @@ spring:
       enabled: true
   mongodb:
     uri: ${MONGO_URI:mongodb://admin:password@localhost:27017/postcodes_db?authSource=admin}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8100/.well-known/jwks.json}
+          authorities-claim-name: permissions
+          authority-prefix: ""
 
 server:
   port: 8200
