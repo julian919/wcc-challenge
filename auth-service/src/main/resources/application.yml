@@ -21,3 +21,9 @@ app:
     private-key: classpath:keys/private.pem
     public-key: classpath:keys/public.pem
     token-ttl: 15m
+
+management:
+  otlp:
+    metrics:
+      export:
+        enabled: false

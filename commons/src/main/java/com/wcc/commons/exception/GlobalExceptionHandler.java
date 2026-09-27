@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ProblemDetail handleAuthenticationFailure(AuthenticationException e) {
+        log.warn("Token rejected: {}", e.getMessage());
         return ApiProblemDetail.of(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Missing or invalid token");
     }
 

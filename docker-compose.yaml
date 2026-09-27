@@ -18,6 +18,7 @@ services:
       dockerfile: auth-service/Dockerfile
     environment:
       MONGO_URI: mongodb://admin:password@mongo:27017/auth_db?authSource=admin
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
     depends_on:
       - mongo
 
@@ -28,6 +29,7 @@ services:
     environment:
       MONGO_URI: mongodb://admin:password@mongo:27017/postcodes_db?authSource=admin
       JWK_SET_URI: http://auth-service:8100/.well-known/jwks.json
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
     depends_on:
       - mongo
 
@@ -36,6 +38,7 @@ services:
     environment:
       AUTH_URI: http://auth-service:8100
       POSTCODES_URI: http://postcodes-service:8200
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
     ports:
       - "8765:8765"
     depends_on:
