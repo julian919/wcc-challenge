@@ -25,7 +25,7 @@ app:
   auth:
     base-url: ${AUTH_BASE_URL:http://localhost:8100}
     client-id: user-service
-    client-secret: ${CLIENT_SECRET:user-service-secret}
+    client-secret: ${CLIENT_SECRET:Test1234@}
 
 management:
   otlp:

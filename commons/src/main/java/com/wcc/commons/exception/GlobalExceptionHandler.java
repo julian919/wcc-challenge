@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.ErrorResponse;
@@ -30,6 +31,11 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleAccessDenied(AccessDeniedException e) {
         return ApiProblemDetail.of(HttpStatus.FORBIDDEN, "ACCESS_DENIED",
                 "You don't have permission to do this");
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail handleUnreadableBody(HttpMessageNotReadableException e) {
+        return ApiProblemDetail.of(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Request body is missing or isn't valid JSON");
     }
 
     @ExceptionHandler(Exception.class)

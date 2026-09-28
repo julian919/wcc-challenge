@@ -25,7 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('REGISTER')")
     public UserDto registerUser(@Valid @RequestBody RegisterUserRequestDto request) {
